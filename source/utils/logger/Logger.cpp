@@ -6,7 +6,7 @@
 
 namespace fs = std::filesystem;
 
-void Logger::init(const std::string &filepath)
+void Utils::Logger::init(const std::string &filepath)
 {
     std::lock_guard<std::mutex> lock(m_mtx);
 
@@ -24,19 +24,19 @@ void Logger::init(const std::string &filepath)
     m_initialized = true;
 }
 
-void Logger::setMinLevel(Level log_level) noexcept
+void Utils::Logger::setMinLevel(Level log_level) noexcept
 {
     std::lock_guard<std::mutex> lock(m_mtx);
     m_minimumLogLevel = log_level;
 }
 
-Logger::Level Logger::getMinLevel() const noexcept
+Utils::Logger::Level Utils::Logger::getMinLevel() const noexcept
 {
     std::lock_guard<std::mutex> lock(m_mtx);
     return m_minimumLogLevel;
 }
 
-void Logger::log(const std::string &log_message, Level log_level, const std::string &tag)
+void Utils::Logger::log(const std::string &log_message, Level log_level, const std::string &tag)
 {
     std::lock_guard<std::mutex> lock(m_mtx);
 
@@ -62,33 +62,33 @@ void Logger::log(const std::string &log_message, Level log_level, const std::str
     }
 }
 
-void Logger::debug(const std::string &log_message, const std::string &tag)
+void Utils::Logger::debug(const std::string &log_message, const std::string &tag)
 {
     log(log_message, Level::DEBUG, tag);
 }
 
-void Logger::info(const std::string &log_message, const std::string &tag)
+void Utils::Logger::info(const std::string &log_message, const std::string &tag)
 {
     log(log_message, Level::INFO, tag);
 }
 
-void Logger::warning(const std::string &log_message, const std::string &tag)
+void Utils::Logger::warning(const std::string &log_message, const std::string &tag)
 {
     log(log_message, Level::WARNING, tag);
 }
 
-void Logger::error(const std::string &log_message, const std::string &tag)
+void Utils::Logger::error(const std::string &log_message, const std::string &tag)
 {
     log(log_message, Level::ERR, tag);
 }
 
-Logger &Logger::getInstance()
+Utils::Logger &Utils::Logger::getInstance()
 {
     static Logger instance;
     return instance;
 }
 
-Logger::~Logger()
+Utils::Logger::~Logger()
 {
     if (m_file.is_open())
     {
@@ -96,7 +96,7 @@ Logger::~Logger()
     }
 }
 
-std::string Logger::m_levelToString(Level log_level) const noexcept
+std::string Utils::Logger::m_levelToString(Level log_level) const noexcept
 {
     switch (log_level)
     {
@@ -108,7 +108,7 @@ std::string Logger::m_levelToString(Level log_level) const noexcept
     }
 }
 
-std::string Logger::m_currentTime() const noexcept
+std::string Utils::Logger::m_currentTime() const noexcept
 {
     std::time_t now = std::time(nullptr);
     std::tm local_time{};
@@ -125,7 +125,7 @@ std::string Logger::m_currentTime() const noexcept
     return std::string(buffer);
 }
 
-void Logger::m_checkRotation()
+void Utils::Logger::m_checkRotation()
 {
     if (!m_initialized)
     {
@@ -161,7 +161,7 @@ void Logger::m_checkRotation()
     }
 }
 
-void Logger::m_writeData(const std::string &log_data)
+void Utils::Logger::m_writeData(const std::string &log_data)
 {
     if (!m_initialized)
     {

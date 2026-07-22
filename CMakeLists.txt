@@ -5,12 +5,18 @@ set(SOURCE_DIR source)
 
 set(HEADER_DIRS
     ${CMAKE_SOURCE_DIR}/config
-    ${SOURCE_DIR}/logger
+    ${SOURCE_DIR}/utils/logger
+    ${SOURCE_DIR}/utils/messages
+    ${SOURCE_DIR}/core
+    ${SOURCE_DIR}/handlers
 )
 
 set(SOURCES
     ${SOURCE_DIR}/main.cpp
-    ${SOURCE_DIR}/logger/Logger.cpp
+    ${SOURCE_DIR}/utils/logger/Logger.cpp
+    ${SOURCE_DIR}/core/TgBot.cpp
+    ${SOURCE_DIR}/core/RegisterBot.cpp
+    ${SOURCE_DIR}/handlers/CommandHandler.cpp
 )
 
 project(${PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)

@@ -1,29 +1,23 @@
-#include <tgbot/tgbot.h>
-#include "logger/logger.hpp"
+
+#include "utils/logger/logger.hpp"
 #include "../config/Config.hpp"
+#include "core/TgBot.hpp"
+#include "core/RegisterBot.hpp"
 
 int main() {
 
-    auto& logger = Logger::getInstance();
+    auto& logger = Utils::Logger::getInstance();
     logger.init(LOGGER_PATH);
 
-    TgBot::Bot bot(TOKEN);
-    bot.getEvents().onCommand("start", [&bot](TgBot::Message::Ptr message) {
-        bot.getApi().sendMessage(message->chat->id, "Hi!");
-    });
-    bot.getEvents().onAnyMessage([&bot, &logger](TgBot::Message::Ptr message) {
-        logger.info("User wrote " + message->text);
-        if (StringTools::startsWith(message->text, "/start")) {
-            return;
-        }
-        bot.getApi().sendMessage(message->chat->id, "Your message is: " + message->text);
-    });
+    auto& bot = Core::Bot::getInstance();
+
+    Core::registerBot(bot, TOKEN);
+
     try {
-        logger.info("Bot username: " + bot.getApi().getMe()->username);
-        TgBot::TgLongPoll longPoll(bot);
-        while (true) {
-            logger.info("Long poll started");
-            longPoll.start();
+        //logger.info("Bot username: " + bot.getApi().getMe()->username);
+        bot.start();
+        while (bot.isRunning()) {
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
     }
     catch (TgBot::TgException& tg_bot_e)
