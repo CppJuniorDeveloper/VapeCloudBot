@@ -7,6 +7,7 @@ set(HEADER_DIRS
     ${CMAKE_SOURCE_DIR}/config
     ${SOURCE_DIR}/utils/logger
     ${SOURCE_DIR}/utils/messages
+    ${SOURCE_DIR}/utils/translation
     ${SOURCE_DIR}/core
     ${SOURCE_DIR}/handlers
 )
@@ -14,6 +15,7 @@ set(HEADER_DIRS
 set(SOURCES
     ${SOURCE_DIR}/main.cpp
     ${SOURCE_DIR}/utils/logger/Logger.cpp
+    ${SOURCE_DIR}/utils/translation/TranslationClient.cpp
     ${SOURCE_DIR}/core/TgBot.cpp
     ${SOURCE_DIR}/core/RegisterBot.cpp
     ${SOURCE_DIR}/handlers/CommandHandler.cpp
@@ -27,8 +29,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 
 add_subdirectory(libs/tgbot-cpp)
 
+find_package(nlohmann_json REQUIRED)
+
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${HEADER_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE TgBot)
+target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
