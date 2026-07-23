@@ -2,7 +2,7 @@
 
 #include "IHandler.hpp"
 
-namespace Core
+namespace Handlers
 {
     class CommandHandler : public IHandler<TgBot::Message::Ptr>
     {

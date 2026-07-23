@@ -23,7 +23,7 @@ void Core::Bot::authorize(const std::string &token)
 
     m_bot = std::make_unique<TgBot::Bot>(token);
 
-    m_commandHandler = std::make_unique<CommandHandler>(*m_bot);
+    m_commandHandler = std::make_unique<Handlers::CommandHandler>(*m_bot);
 
     m_authorized = true;
 }
@@ -34,7 +34,7 @@ const TgBot::Api &Core::Bot::api() const
     return m_bot->getApi();
 }
 
-void Core::Bot::addCommand(const std::string &command, CommandHandler::CommandCallback callback)
+void Core::Bot::addCommand(const std::string &command, Handlers::CommandHandler::CommandCallback callback)
 {
     checkAutorized();
     m_commandHandler->addCommand(command, callback);

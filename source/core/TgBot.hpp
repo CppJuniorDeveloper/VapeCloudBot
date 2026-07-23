@@ -27,7 +27,7 @@ namespace Core
 
         std::unique_ptr<TgBot::Bot> m_bot;
 
-        std::unique_ptr<CommandHandler> m_commandHandler;
+        std::unique_ptr<Handlers::CommandHandler> m_commandHandler;
 
         Utils::Logger& m_logger = Utils::Logger::getInstance();
 
@@ -45,6 +45,10 @@ namespace Core
 
         Bot() = default;
         ~Bot();
+        Bot(const Bot&) = delete;
+        Bot& operator=(const Bot&) = delete;
+        Bot(Bot&&) = delete;
+        Bot& operator=(Bot&&) = delete;
 
     public:
 
@@ -52,7 +56,7 @@ namespace Core
         void authorize(const std::string& token);
         const TgBot::Api& api() const;
 
-        void addCommand(const std::string& command, CommandHandler::CommandCallback callback);
+        void addCommand(const std::string& command, Handlers::CommandHandler::CommandCallback callback);
 
         void start();
         void stop();

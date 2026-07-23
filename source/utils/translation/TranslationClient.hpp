@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <curl/curl.h>
 #include <unordered_set>
+#include <atomic>
 
 using json = nlohmann::json;
 
@@ -36,6 +37,9 @@ namespace Utils
         static bool isValidLang(const std::string& lang);
         static bool isAvailable();
 
+        static void enable();
+        static void disable();
+
     private:
 
         TranslationClient() = delete;
@@ -48,5 +52,6 @@ namespace Utils
         static size_t m_writeCallback(void* contents, size_t size, size_t nmemb, std::string* output);
         static std::string m_postRequest(const json& payload);
 
+        static inline std::atomic<bool> m_disableTranslation{false};
     };
 }

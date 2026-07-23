@@ -5,6 +5,12 @@ std::string Utils::TranslationClient::translate(const std::string& text, const s
 {
     auto& logger = Logger::getInstance();
 
+    if (m_disableTranslation.load())
+    {
+        logger.warning("Translation state: disabled", "TRANSLATE");
+        return text;
+    }
+
     if (text.empty()) {
         logger.warning("Translation: Empty text received", "TRANSLATE");
         return text;
@@ -111,6 +117,16 @@ bool Utils::TranslationClient::isAvailable()
     } catch (...) {
         return false;
     }
+}
+
+void Utils::TranslationClient::enable()
+{
+    m_disableTranslation.store(false);
+}
+
+void Utils::TranslationClient::disable()
+{
+    m_disableTranslation.store(true);
 }
 
 size_t Utils::TranslationClient::m_writeCallback(void *contents, size_t size, size_t nmemb, std::string *output)

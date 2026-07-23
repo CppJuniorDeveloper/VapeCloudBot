@@ -5,7 +5,7 @@
 
 namespace Utils
 {
-    inline const std::unordered_map<std::string, std::string> MESSAGE_TABLE =
+    inline const std::unordered_map<std::string, std::string> COMMAND_MESSAGE_TABLE =
     {
         {"onCommandStart",
 
@@ -17,6 +17,46 @@ namespace Utils
         "• See your orders — /orders\n"
         "• Get help — /help\n\n"
         "Let's get started! 🚀"
+
+        },
+        {"onCommandLanguage",
+
+        "🌍 Please, select your language"
+
+        },
+        {"onCommandAdmin",
+
+        "🛡️ ADMIN PANEL\n\n"
+        "Status: [ADMIN]\n"
+        "ID: "
+
+        }
+    };
+
+    inline const std::unordered_map<std::string, std::string> BUTTON_LABEL_TABLE =
+    {
+        {"onButtonChooseOwnLanguageCode",
+
+        "Other language (enter 2-letter code)"
+
+        },
+        {"onButtonEnableTranslation",
+
+        "Enable translation"
+
+        },
+        {"onButtonDisableTranslation",
+
+        "Disable translation"
+
+        }
+    };
+
+    inline const std::unordered_map<std::string, std::string> ERROR_MESSAGE_TABLE =
+    {
+        {"onDenyAdminRoots",
+
+        "❌ Access denied. You are not an administrator."
 
         }
     };

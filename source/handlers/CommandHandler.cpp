@@ -1,6 +1,6 @@
 #include "CommandHandler.hpp"
 
-bool Core::CommandHandler::handle(Message message)
+bool Handlers::CommandHandler::handle(Message message)
 {
     auto it = m_commands.find(message->text);
 
@@ -13,7 +13,7 @@ bool Core::CommandHandler::handle(Message message)
     return true;
 }
 
-void Core::CommandHandler::addCommand(const std::string &command, CommandCallback command_callback)
+void Handlers::CommandHandler::addCommand(const std::string &command, CommandCallback command_callback)
 {
     std::lock_guard<std::mutex> lock(m_mtx);
     auto it = m_commands.find(command);

@@ -1,8 +1,9 @@
 cmake --build build
 cd python
-start /B uvicorn translation_server:app --host 127.0.0.1 --port 8000 --workers 8
+call .venv\Scripts\activate.bat
+timeout /t 1 /nobreak
+start "Translation Server" uv run python translation_server.py
 cd ..
 timeout /t 2 /nobreak
 bin\Debug\VapeCloudBot
 
-taskkill /F /IM uvicorn.exe

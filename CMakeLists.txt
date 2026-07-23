@@ -8,17 +8,23 @@ set(HEADER_DIRS
     ${SOURCE_DIR}/utils/logger
     ${SOURCE_DIR}/utils/messages
     ${SOURCE_DIR}/utils/translation
+    ${SOURCE_DIR}/utils/keyboard
+    ${SOURCE_DIR}/admin
     ${SOURCE_DIR}/core
     ${SOURCE_DIR}/handlers
+    ${SOURCE_DIR}/session
 )
 
 set(SOURCES
     ${SOURCE_DIR}/main.cpp
     ${SOURCE_DIR}/utils/logger/Logger.cpp
     ${SOURCE_DIR}/utils/translation/TranslationClient.cpp
+    ${SOURCE_DIR}/utils/keyboard/KeyboardBuilder.cpp
+    ${SOURCE_DIR}/admin/AdminManager.cpp
     ${SOURCE_DIR}/core/TgBot.cpp
     ${SOURCE_DIR}/core/RegisterBot.cpp
     ${SOURCE_DIR}/handlers/CommandHandler.cpp
+    ${SOURCE_DIR}/session/UserSessionManager.cpp
 )
 
 project(${PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
